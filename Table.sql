@@ -99,3 +99,18 @@ CREATE TABLE Student(
     FOREIGN KEY(School_ID) REFERENCES ElementarySchool(School_ID)
 );
 
+CREATE TABLE TeachesIn(
+    StaffID INT NOT NULL,
+    ClassroomNum INT NOT NULL,
+    PRIMARY KEY(StaffID, ClassroomNum),
+    FOREIGN KEY(StaffID) REFERENCES Staff(StaffID),
+    FOREIGN KEY(ClassroomNum) REFERENCES Classroom(ClassroomNum)
+);
+
+CREATE TABLE UniversityDiploma(
+    DateReceived VARCHAR(10) NOT NULL,
+    DiplomaID INT,
+    StaffID INT,
+    PRIMARY KEY(StaffID, DiplomaID),
+    FOREIGN KEY(StaffID) REFERENCES STAFF(StaffID)
+);
