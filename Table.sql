@@ -1,90 +1,101 @@
 CREATE TABLE Cafeteria(
-    CafeteriaNum int NOT NULL,
-    NumOfTables int NOT NULL,
-    NumOfSeats int NOT NULL,
-    NumOfStaff int NOT NULL,
+    CafeteriaNum INT NOT NULL,
+    NumOfTables INT NOT NULL,
+    NumOfSeats INT NOT NULL,
+    NumOfStaff INT NOT NULL,
     PRIMARY KEY(CafeteriaNum)
 );
 
 CREATE TABLE Classes Taught(
-    ClassroomNum int,
-    C_Taught Varchar(80),
+    ClassroomNum INT NOT NULL,
+    C_Taught VARCHAR(80) NOT NULL,
     PRIMARY KEY(C_Taught, ClassroomNum),
     FOREIGN KEY(ClassroomNum) REFERENCES Classroom(ClassroomNum)
 );
 
 CREATE TABLE Classroom(
-    ClassroomNum int,
-    School_ID int,
-    NumOfSeats int,
-    NumOfTables int,
-    PRIMARY KEY(ClassroomNum)
+    ClassroomNum INT NOT NULL,
+    School_ID INT NOT NULL,
+    NumOfSeats INT NOT NULL,
+    NumOfTables INT NOT NULL,
+    PRIMARY KEY(ClassroomNum),
+    FOREIGN KEY(School_ID) REFERENCES ElementarySchool(School_ID)
 );
 
 CREATE TABLE DateTrainingCertificate(
-    StaffID int,
-    CertificateID int,
-    DateReceived VARCHAR(4),
-    PRIMARY KEY(StaffID, CertificateID)
+    StaffID INT NOT NULL,
+    CertificateID INT NOT NULL,
+    DateReceived VARCHAR(4) NOT NULL,
+    PRIMARY KEY(StaffID, CertificateID),
+    FOREIGN KEY(StaffID) REFERENCES Staff(StaffID)
 );
 
 CREATE TABLE ElementarySchool(
-    School_ID int,
-    SchoolName varchar(80),
-    NumOfStudents int,
-    CafeteriaNum int,
+    School_ID INT NOT NULL,
+    SchoolName VARCHAR(80) NOT NULL,
+    NumOfStudents INT NOT NULL,
+    CafeteriaNum INT NOT NULL,
     PRIMARY KEY(School_ID)
 );
 
 CREATE TABLE FoodServed(
-    CafeteriaNum int,
-    FoodServed int,
+    CafeteriaNum INT NOT NULL,
+    FoodServed INT NOT NULL,
     PRIMARY KEY(CafeteriaNum, FoodServed)
+    FOREIGN KEY(CafeteriaNum) REFERENCES Cafeteria(CafeteriaNum)
 );
 
 CREATE TABLE IDBadge(
-    StaffID int,
-    ExpirationDate VARCHAR(4),
-    DateReceived VARCHAR(4),
-    PRIMARY KEY(StaffID)
+    StaffID INT NOT NULL,
+    ExpirationDate VARCHAR(4) NOT NULL,
+    DateReceived VARCHAR(4) NOT NULL,
+    PRIMARY KEY(StaffID),
+    FOREIGN KEY(StaffID) REFERENCES Staff(StaffID)
 );
 
 CREATE TABLE LearnsIn(
-    StudentID int,
-    ClassroomNum int,
-    PRIMARY KEY(StudentID, ClassroomNum)
+    StudentID INT NOT NULL,
+    ClassroomNum INT NOT NULL,
+    PRIMARY KEY(StudentID, ClassroomNum),
+    FOREIGN KEY(StudentID) REFERENCES Student(StudentID),
+    FOREIGN KEY(ClassroomNum) REFERENCES Classroom(ClassroomNum)
 );
 
 CREATE TABLE NursingSchoolDiploma(
-    StaffID int,
-    DiplomaID int,
-    DateReceived VARCHAR(10),
-    PRIMARY KEY(StaffID, DiplomaID)
+    StaffID INT NOT NULL,
+    DiplomaID INT NOT NULL,
+    DateReceived VARCHAR(10) NOT NULL,
+    PRIMARY KEY(StaffID, DiplomaID),
+    FOREIGN KEY(StaffID) REFERENCES Staff(StaffID)
 );
 
 CREATE TABLE Staff(
-    StaffID INT,
-    StaffName VARCHAR(80),
-    age int,
-    CafeteriaNum int,
-    School_ID int,
+    StaffID INT NOT NULL,
+    StaffName VARCHAR(80) NOT NULL,
+    age INT NOT NULL,
+    CafeteriaNum INT,
+    School_ID INT NOT NULL,
     CourseSubject VARCHAR(80),
     SecLiceNum VARCHAR(20),
-    NumYearAsPrincipal int,
-    NurseLiceNum int,
-    CounsLiceNum int,
+    NumYearAsPrincipal INT,
+    NurseLiceNum INT,
+    CounsLiceNum INT,
     Job_Res VARCHAR(80),
     SchoolAcc VARCHAR(20),
-    PRIMARY(StaffID)
+    PRIMARY(StaffID),
+    FOREIGN KEY(CafeteriaNum) REFERENCES Cafeteria(CafeteriaNum),
+    FOREIGN KEY(School_ID) REFERENCES ElementarySchool(School_ID)
 );
 
 CREATE TABLE Student(
-    StudentID int,
-    StudentName varchar(80),
-    year varchar(10),
-    age int,
-    CafeteriaNum int,
-    School_ID int,
-    PRIMARY KEY(StudentID)
+    StudentID INT NOT NULL,
+    StudentName VARCHAR(80) NOT NULL,
+    year VARCHAR(10) NOT NULL,
+    age INT NOT NULL,
+    CafeteriaNum INT NOT NULL,
+    School_ID INT NOT NULL,
+    PRIMARY KEY(StudentID),
+    FOREIGN KEY(CafeteriaNum) REFERENCES Cafeteria(CafeteriaNum),
+    FOREIGN KEY(School_ID) REFERENCES ElementarySchool(School_ID)
 );
 
