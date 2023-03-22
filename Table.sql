@@ -6,7 +6,7 @@ CREATE TABLE Cafeteria(
     PRIMARY KEY(CafeteriaNum)
 );
 
-CREATE TABLE Classes Taught(
+CREATE TABLE ClassesTaught(
     ClassroomNum INT NOT NULL,
     C_Taught VARCHAR(80) NOT NULL,
     PRIMARY KEY(C_Taught, ClassroomNum),
@@ -82,7 +82,7 @@ CREATE TABLE Staff(
     CounsLiceNum INT,
     Job_Res VARCHAR(80),
     SchoolAcc VARCHAR(20),
-    PRIMARY(StaffID),
+    PRIMARY KEY(StaffID),
     FOREIGN KEY(CafeteriaNum) REFERENCES Cafeteria(CafeteriaNum),
     FOREIGN KEY(School_ID) REFERENCES ElementarySchool(School_ID)
 );
