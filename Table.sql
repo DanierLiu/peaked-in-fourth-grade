@@ -9,8 +9,7 @@ CREATE TABLE Cafeteria(
 CREATE TABLE ClassesTaught(
     ClassroomNum INT NOT NULL,
     C_Taught VARCHAR(80) NOT NULL,
-    PRIMARY KEY(C_Taught, ClassroomNum),
-    FOREIGN KEY(ClassroomNum) REFERENCES Classroom(ClassroomNum)
+    PRIMARY KEY(C_Taught, ClassroomNum)
 );
 
 CREATE TABLE Classroom(
@@ -18,16 +17,14 @@ CREATE TABLE Classroom(
     School_ID INT NOT NULL,
     NumOfSeats INT NOT NULL,
     NumOfTables INT NOT NULL,
-    PRIMARY KEY(ClassroomNum),
-    FOREIGN KEY(School_ID) REFERENCES ElementarySchool(School_ID)
+    PRIMARY KEY(ClassroomNum)
 );
 
 CREATE TABLE DateTrainingCertificate(
     StaffID INT NOT NULL,
     CertificateID INT NOT NULL,
     DateReceived VARCHAR(4) NOT NULL,
-    PRIMARY KEY(StaffID, CertificateID),
-    FOREIGN KEY(StaffID) REFERENCES Staff(StaffID)
+    PRIMARY KEY(StaffID, CertificateID)
 );
 
 CREATE TABLE ElementarySchool(
@@ -42,31 +39,26 @@ CREATE TABLE FoodServed(
     CafeteriaNum INT NOT NULL,
     FoodServed INT NOT NULL,
     PRIMARY KEY(CafeteriaNum, FoodServed)
-    FOREIGN KEY(CafeteriaNum) REFERENCES Cafeteria(CafeteriaNum)
 );
 
 CREATE TABLE IDBadge(
     StaffID INT NOT NULL,
     ExpirationDate VARCHAR(4) NOT NULL,
     DateReceived VARCHAR(4) NOT NULL,
-    PRIMARY KEY(StaffID),
-    FOREIGN KEY(StaffID) REFERENCES Staff(StaffID)
+    PRIMARY KEY(StaffID)
 );
 
 CREATE TABLE LearnsIn(
     StudentID INT NOT NULL,
     ClassroomNum INT NOT NULL,
-    PRIMARY KEY(StudentID, ClassroomNum),
-    FOREIGN KEY(StudentID) REFERENCES Student(StudentID),
-    FOREIGN KEY(ClassroomNum) REFERENCES Classroom(ClassroomNum)
+    PRIMARY KEY(StudentID, ClassroomNum)
 );
 
 CREATE TABLE NursingSchoolDiploma(
     StaffID INT NOT NULL,
     DiplomaID INT NOT NULL,
     DateReceived VARCHAR(10) NOT NULL,
-    PRIMARY KEY(StaffID, DiplomaID),
-    FOREIGN KEY(StaffID) REFERENCES Staff(StaffID)
+    PRIMARY KEY(StaffID, DiplomaID)
 );
 
 CREATE TABLE Staff(
@@ -82,9 +74,7 @@ CREATE TABLE Staff(
     CounsLiceNum INT,
     Job_Res VARCHAR(80),
     SchoolAcc VARCHAR(20),
-    PRIMARY KEY(StaffID),
-    FOREIGN KEY(CafeteriaNum) REFERENCES Cafeteria(CafeteriaNum),
-    FOREIGN KEY(School_ID) REFERENCES ElementarySchool(School_ID)
+    PRIMARY KEY(StaffID)
 );
 
 CREATE TABLE Student(
@@ -94,23 +84,70 @@ CREATE TABLE Student(
     age INT NOT NULL,
     CafeteriaNum INT NOT NULL,
     School_ID INT NOT NULL,
-    PRIMARY KEY(StudentID),
-    FOREIGN KEY(CafeteriaNum) REFERENCES Cafeteria(CafeteriaNum),
-    FOREIGN KEY(School_ID) REFERENCES ElementarySchool(School_ID)
+    PRIMARY KEY(StudentID)
 );
 
 CREATE TABLE TeachesIn(
     StaffID INT NOT NULL,
     ClassroomNum INT NOT NULL,
-    PRIMARY KEY(StaffID, ClassroomNum),
-    FOREIGN KEY(StaffID) REFERENCES Staff(StaffID),
-    FOREIGN KEY(ClassroomNum) REFERENCES Classroom(ClassroomNum)
+    PRIMARY KEY(StaffID, ClassroomNum)
 );
 
 CREATE TABLE UniversityDiploma(
     DateReceived VARCHAR(10) NOT NULL,
     DiplomaID INT,
     StaffID INT,
-    PRIMARY KEY(StaffID, DiplomaID),
-    FOREIGN KEY(StaffID) REFERENCES STAFF(StaffID)
+    PRIMARY KEY(StaffID, DiplomaID)
 );
+
+ALTER TABLE ClassesTaught
+ADD CONSTRAINT fk_ClassesTaught_ClassroomNum
+FOREIGN KEY (ClassroomNum) REFERENCES Classroom(ClassroomNum);
+
+ALTER TABLE Classroom
+ADD CONSTRAINT fk_Classroom_School_ID
+FOREIGN KEY (School_ID) REFERENCES ElementarySchool(School_ID);
+
+ALTER TABLE DateTrainingCertificate
+ADD CONSTRAINT fk_DateTrainingCertificate_StaffID
+FOREIGN KEY (StaffID) REFERENCES Staff(StaffID);
+
+ALTER TABLE FoodServed
+ADD CONSTRAINT fk_FoodServed_CafeteriaNum
+FOREIGN KEY (CafeteriaNum) REFERENCES Cafeteria(CafeteriaNum);
+
+ALTER TABLE IDBadge
+ADD CONSTRAINT fk_IDBadge_StaffID
+FOREIGN KEY (StaffID) REFERENCES Staff(StaffID);
+
+ALTER TABLE LearnsIn
+ADD CONSTRAINT fk_LearnsIn_StudentID
+FOREIGN KEY (StudentID) REFERENCES Student(StudentID),
+ADD CONSTRAINT fk_LearnsIn_ClassroomNum
+FOREIGN KEY (ClassroomNum) REFERENCES Classroom(ClassroomNum);
+
+ALTER TABLE NursingSchoolDiploma
+ADD CONSTRAINT fk_NursingSchoolDiploma_StaffID
+FOREIGN KEY (StaffID) REFERENCES Staff(StaffID);
+
+ALTER TABLE Staff
+ADD CONSTRAINT fk_Staff_CafeteriaNum
+FOREIGN KEY (CafeteriaNum) REFERENCES Cafeteria(CafeteriaNum),
+ADD CONSTRAINT fk_Staff_School_ID
+FOREIGN KEY (School_ID) REFERENCES ElementarySchool(School_ID);
+
+ALTER TABLE Student
+ADD CONSTRAINT fk_Student_CafeteriaNum
+FOREIGN KEY (CafeteriaNum) REFERENCES Cafeteria(CafeteriaNum),
+ADD CONSTRAINT fk_Student_School_ID
+FOREIGN KEY (School_ID) REFERENCES ElementarySchool(School_ID);
+
+ALTER TABLE TeachesIn
+ADD CONSTRAINT fk_TeachesIn_StaffID
+FOREIGN KEY (StaffID) REFERENCES Staff(StaffID),
+ADD CONSTRAINT fk_TeachesIn_ClassroomNum
+FOREIGN KEY (ClassroomNum) REFERENCES Classroom(ClassroomNum);
+
+ALTER TABLE UniversityDiploma
+ADD CONSTRAINT fk_UniversityDiploma_StaffID
+FOREIGN KEY (StaffID) REFERENCES Staff(StaffID);
