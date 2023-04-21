@@ -9,7 +9,7 @@ cursor = cnx.cursor()
 
 cafeNum = 1000001
 
-for i in range(1,200):
+for i in range(1,201):
   numOfTables = random.randint(20,50)
   numOfSeats = random.randint(50,1000)
   numOfStaff = random.randint(5,20)
