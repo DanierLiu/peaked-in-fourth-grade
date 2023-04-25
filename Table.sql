@@ -37,7 +37,7 @@ CREATE TABLE ElementarySchool(
 
 CREATE TABLE FoodServed(
     CafeteriaNum INT NOT NULL,
-    FoodServed INT NOT NULL,
+    FoodServed VARCHAR(60) NOT NULL,
     PRIMARY KEY(CafeteriaNum, FoodServed)
 );
 
