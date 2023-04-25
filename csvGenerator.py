@@ -91,7 +91,7 @@ with open('foodserved_data.csv', 'w', newline='') as csvfile:
 
 csvfile.close()
 
-Staff
+# Staff
 # Load first and last names from CSV file
 with open('names.csv', 'r') as csvfile:
     reader = csv.reader(csvfile)
